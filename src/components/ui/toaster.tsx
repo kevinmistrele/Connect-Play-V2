@@ -1,11 +1,11 @@
 import { useToast } from "@/hooks/use-toast"
 import {
-  Toast,
-  ToastClose,
-  ToastDescription,
-  ToastProvider,
-  ToastTitle,
-  ToastViewport,
+  CntToast as Toast,
+  CntToastClose as ToastClose,
+  CntToastDescription as ToastDescription,
+  CntToastProvider as ToastProvider,
+  CntToastTitle as ToastTitle,
+  CntToastViewport as ToastViewport,
 } from "@/components/ui/toast"
 
 export function Toaster() {

@@ -1,79 +1,75 @@
-import * as React from "react"
-
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import { cn } from "@/lib/utils";
 
 const Card = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
+    HTMLDivElement,
+    React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      "rounded-lg border bg-card text-card-foreground shadow-sm",
-      className
-    )}
-    {...props}
-  />
-))
-Card.displayName = "Card"
+    <div
+        ref={ref}
+        className={cn(
+            "bg-card-bg rounded-lg border border-primary/30 hover:border-primary/60 transition-all duration-300",
+            className
+        )}
+        {...props}
+    />
+));
+Card.displayName = "CntCard";
 
 const CardHeader = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
+    HTMLDivElement,
+    React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("flex flex-col space-y-1.5 p-6", className)}
-    {...props}
-  />
-))
-CardHeader.displayName = "CardHeader"
+    <div ref={ref} className={cn("p-5", className)} {...props} />
+));
+CardHeader.displayName = "CntCardHeader";
 
 const CardTitle = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLHeadingElement>
+    HTMLParagraphElement,
+    React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
-  <h3
-    ref={ref}
-    className={cn(
-      "text-2xl font-semibold leading-none tracking-tight",
-      className
-    )}
-    {...props}
-  />
-))
-CardTitle.displayName = "CardTitle"
+    <h4
+        ref={ref}
+        className={cn("font-poppins text-lg font-semibold mb-3", className)}
+        {...props}
+    />
+));
+CardTitle.displayName = "CntCardTitle";
 
 const CardDescription = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
+    HTMLParagraphElement,
+    React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <p
-    ref={ref}
-    className={cn("text-sm text-muted-foreground", className)}
-    {...props}
-  />
-))
-CardDescription.displayName = "CardDescription"
+    <p
+        ref={ref}
+        className={cn("font-inter text-sm text-gray-300 mb-4", className)}
+        {...props}
+    />
+));
+CardDescription.displayName = "CntCardDescription";
 
 const CardContent = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
+    HTMLDivElement,
+    React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
-))
-CardContent.displayName = "CardContent"
+    <div ref={ref} className={cn("p-5 pt-0", className)} {...props} />
+));
+CardContent.displayName = "CntCardContent";
 
 const CardFooter = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
+    HTMLDivElement,
+    React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("flex items-center p-6 pt-0", className)}
-    {...props}
-  />
-))
-CardFooter.displayName = "CardFooter"
+    <div ref={ref} className={cn("p-5 pt-0", className)} {...props} />
+));
+CardFooter.displayName = "CntCardFooter";
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
+// Aqui exportamos com nomes prefixed:
+export {
+    Card as CntCard,
+    CardHeader as CntCardHeader,
+    CardFooter as CntCardFooter,
+    CardTitle as CntCardTitle,
+    CardDescription as CntCardDescription,
+    CardContent as CntCardContent,
+};

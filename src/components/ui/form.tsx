@@ -165,12 +165,12 @@ const FormMessage = React.forwardRef<
 FormMessage.displayName = "FormMessage"
 
 export {
-  useFormField,
-  Form,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormDescription,
-  FormMessage,
-  FormField,
-}
+  useFormField as useCntFormField,
+  Form as CntForm,
+  FormItem as CntFormItem,
+  FormLabel as CntFormLabel,
+  FormControl as CntFormControl,
+  FormDescription as CntFormDescription,
+  FormMessage as CntFormMessage,
+  FormField as CntFormField,
+};
