@@ -32,10 +32,9 @@
 
 ```bash
 # 1. Clone o repositório
-git clone https://github.com/seu-usuario/connectplay.git
+https://github.com/kevinmistrele/Connect-Play-V2.git
 
 # 2. Acesse a pasta do frontend
-cd connectplay-frontend
 
 # 3. Instale as dependências
 npm install
