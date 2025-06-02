@@ -1,73 +1,154 @@
-# Welcome to your Lovable project
+# 🎮 ConnectPlay
 
-## Project info
+**ConnectPlay** é uma plataforma web para conectar jogadores sem duo ou com time incompleto. O objetivo é facilitar a formação de duplas ou grupos baseados em interesses e perfis compatíveis.
 
-**URL**: https://lovable.dev/projects/dc9141be-b90f-407f-84f9-12177d69fea9
+---
 
-## How can I edit this code?
+## 🚀 Tecnologias Usadas
 
-There are several ways of editing your application.
+- **React + TypeScript**
+- **Vite** (build rápido)
+- **Tailwind CSS** (estilização)
+- **ShadCN UI** (componentes prontos e acessíveis)
+- **Node.js + Express** (backend - separado)
+- **MongoDB** (banco de dados)
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/dc9141be-b90f-407f-84f9-12177d69fea9) and start prompting.
+## 🧰 Como rodar o projeto (passo a passo)
 
-Changes made via Lovable will be committed automatically to this repo.
+> Esses passos são para rodar o **frontend** do projeto localmente.
 
-**Use your preferred IDE**
+### ✅ Pré-requisitos
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- Ter o **Node.js** instalado (versão LTS recomendada)
+- Ter o **npm** ou **yarn**
+- Ter o **Git** instalado
+- (Opcional) Usar o **WebStorm** com a conta acadêmica
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+---
 
-Follow these steps:
+### 📦 Instalação
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+```bash
+# 1. Clone o repositório
+git clone https://github.com/seu-usuario/connectplay.git
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# 2. Acesse a pasta do frontend
+cd connectplay-frontend
 
-# Step 3: Install the necessary dependencies.
-npm i
+# 3. Instale as dependências
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# 4. Rode o projeto localmente
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### 🗂️ Estrutura de Pastas e Organização do Frontend
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
 
-**Use GitHub Codespaces**
+```bash
+src/
+├── assets/         # Imagens, logos, ícones, fontes
+├── components/     # Componentes reutilizáveis e visuais (ex: Botão, Card, Modal)
+├── features/       # Funcionalidades separadas por domínio (ex: matchmaking, chat, perfil)
+│   └── matchmaking/
+│       ├── components/           # Componentes específicos da funcionalidade
+│       ├── MatchmakingPage.tsx   # Página principal (layout da tela)
+│       └── matchmaking.logic.ts  # Lógica de funcionamento (hooks, handlers, chamadas API)
+├── layouts/        # Estrutura base da interface (menu lateral, topo, etc.)
+├── lib/            # Helpers, configurações globais, integração com libs externas (ex: axios)
+├── pages/          # Páginas principais do sistema (ex: HomePage, ProfilePage)
+├── routes/         # Definições de rotas do React Router
+├── services/       # Conexões com backend / chamadas de API
+├── store/          # Estado global da aplicação (Zustand, Redux, etc)
+├── styles/         # Arquivos de estilo, configurações do Tailwind, temas
+└── types/          # Tipagens globais e compartilhadas em TypeScript
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-## What technologies are used for this project?
+| Parte da aplicação      | Local                                        | Descrição                                                                  |
+| ----------------------- | -------------------------------------------- | -------------------------------------------------------------------------- |
+| Layout visual da tela   | `src/pages/` ou `src/features/*/components/` | JSX e Tailwind. Exibe o que o usuário vê, sem lógica pesada.               |
+| Lógica funcional        | `src/features/*/*.logic.ts`                  | Toda regra de negócio (hooks, validação, chamadas API, controle de estado) |
+| Componentes genéricos   | `src/components/`                            | Componentes reutilizáveis em diversas partes da aplicação                  |
+| Integração com backend  | `src/services/`                              | Funções que fazem fetch/post no backend (Express/MongoDB)                  |
+| Gerenciamento de estado | `src/store/`                                 | Zustand ou Redux, caso necessário manter dados globais                     |
 
-This project is built with:
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
 
-## How can I deploy this project?
+## 🛠️ Guia rápido para colaborar no ConnectPlay
 
-Simply open [Lovable](https://lovable.dev/projects/dc9141be-b90f-407f-84f9-12177d69fea9) and click on Share -> Publish.
+Se você for contribuir com o projeto, siga esses passos para garantir que tudo funcione corretamente e nada seja enviado direto para a branch `master`.
 
-## Can I connect a custom domain to my Lovable project?
+---
 
-Yes, you can!
+### 🚀 Passo a passo para subir uma funcionalidade
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+#### 1. Atualize sua `master` local
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+```bash
+git checkout master
+git pull origin master
+```
+
+#### 2. Crie uma nova branch para sua tarefa
+
+```bash
+git checkout -b feature/nome-da-sua-tarefa
+```
+
+**Exemplo:**
+
+```bash
+git checkout -b feature/criacao-de-card
+```
+
+#### 3. Faça suas alterações e comite
+
+```bash
+git add .
+git commit -m "feat: cria componente de card de usuário"
+```
+
+#### 4. Envie sua branch para o GitHub
+
+```bash
+git push -u origin feature/nome-da-sua-tarefa
+```
+
+---
+
+### ✅ Criar o Pull Request
+
+1. Acesse o repositório no GitHub
+2. Vai aparecer a opção **"Compare & pull request"**
+3. Verifique se está indo de `feature/...` → `master`
+4. Escreva um título e uma descrição do que fez
+5. Crie o PR
+
+---
+
+### 🔒 Observações importantes
+
+- **Não faça push direto para a `master`**
+- **Somente o Kevin pode fazer o merge mas podem testar**
+- Se tiver dúvida, avisa no grupo ou marca alguém no PR
+
+---
+
+### 🧠 Dica: mensagens de commit
+
+Ao escrever mensagens de commit, siga um padrão para facilitar a leitura do histórico do projeto. Aqui estão três prefixos comuns e seu uso:
+
+- `feat:` → para **novas funcionalidades**
+  > Ex: `feat: adiciona botão de login`
+
+- `fix:` → para **correções de bugs**
+  > Ex: `fix: corrige bug do formulário`
+
+- `chore:` → para **tarefas técnicas sem impacto direto no usuário**
+  > Ex: `chore: remove console.log`
+
+---
+
