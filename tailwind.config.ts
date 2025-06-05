@@ -21,8 +21,8 @@ export default {
 			colors: {
 				background: "#0A0A0A",
 				foreground: "#F8FAFC",
-				"text-light": "#F8FAFC",         // adicionado
-				"card-bg": "#1E1E1E",            // adicionado
+				"text-light": "#F8FAFC",
+				"card-bg": "#1E1E1E",
 				border: "#475569",
 				input: "#1E293B",
 				ring: "#7C3AED",
