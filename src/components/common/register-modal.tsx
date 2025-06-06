@@ -145,7 +145,7 @@ export function RegisterModal({ isOpen, onClose, onSwitchToLogin }: RegisterModa
                         <div className="text-center space-y-6 max-w-sm relative z-10">
                             <div className="flex justify-center mb-6">
                                 <div className="relative">
-                                    <img src="/public/ConnectPlay.png" alt="ConnectPlay Logo" width={160} height={160} className="rounded-2xl shadow-xl" />
+sec                                    <img src="/ConnectPlay.png" alt="ConnectPlay Logo" width={160} height={160} className="rounded-2xl shadow-xl" />
                                 </div>
                             </div>
 
