@@ -1,27 +1,44 @@
-import * as React from "react"
-import * as HoverCardPrimitive from "@radix-ui/react-hover-card"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
-import { cn } from "@/lib/utils"
+const cntHoverCardVariants = cva(
+    "flex w-full rounded-md border px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed",
+    {
+        variants: {
+            variant: {
+                default: "bg-background border-border text-white",
+                ghost: "bg-transparent border-transparent hover:bg-muted",
+                filled: "bg-muted border-muted text-foreground",
+            },
+            size: {
+                sm: "h-8 px-2 text-sm",
+                md: "h-10 px-4 text-base",
+                lg: "h-12 px-6 text-lg",
+            },
+        },
+        defaultVariants: {
+            variant: "default",
+            size: "md",
+        },
+    }
+);
 
-const HoverCard = HoverCardPrimitive.Root
+export interface CntHoverCardProps
+    extends React.HTMLAttributes<HTMLDivElement>,
+        VariantProps<typeof cntHoverCardVariants> {}
 
-const HoverCardTrigger = HoverCardPrimitive.Trigger
+const CntHoverCard = React.forwardRef<HTMLDivElement, CntHoverCardProps>(
+    ({ className, variant, size, ...props }, ref) => {
+        return (
+            <div
+                className={cn(cntHoverCardVariants({ variant, size }), className)}
+                ref={ref}
+                {...props}
+            />
+        );
+    }
+);
+CntHoverCard.displayName = "CntHoverCard";
 
-const HoverCardContent = React.forwardRef<
-  React.ElementRef<typeof HoverCardPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Content>
->(({ className, align = "center", sideOffset = 4, ...props }, ref) => (
-  <HoverCardPrimitive.Content
-    ref={ref}
-    align={align}
-    sideOffset={sideOffset}
-    className={cn(
-      "z-50 w-64 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-      className
-    )}
-    {...props}
-  />
-))
-HoverCardContent.displayName = HoverCardPrimitive.Content.displayName
-
-export { HoverCard, HoverCardTrigger, HoverCardContent }
+export { CntHoverCard, cntHoverCardVariants };

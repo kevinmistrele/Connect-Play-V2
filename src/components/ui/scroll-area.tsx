@@ -1,46 +1,44 @@
-import * as React from "react"
-import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
-import { cn } from "@/lib/utils"
+const cntScrollAreaVariants = cva(
+    "flex w-full rounded-md border px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed",
+    {
+        variants: {
+            variant: {
+                default: "bg-background border-border text-white",
+                ghost: "bg-transparent border-transparent hover:bg-muted",
+                filled: "bg-muted border-muted text-foreground",
+            },
+            size: {
+                sm: "h-8 px-2 text-sm",
+                md: "h-10 px-4 text-base",
+                lg: "h-12 px-6 text-lg",
+            },
+        },
+        defaultVariants: {
+            variant: "default",
+            size: "md",
+        },
+    }
+);
 
-const ScrollArea = React.forwardRef<
-  React.ElementRef<typeof ScrollAreaPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root>
->(({ className, children, ...props }, ref) => (
-  <ScrollAreaPrimitive.Root
-    ref={ref}
-    className={cn("relative overflow-hidden", className)}
-    {...props}
-  >
-    <ScrollAreaPrimitive.Viewport className="h-full w-full rounded-[inherit]">
-      {children}
-    </ScrollAreaPrimitive.Viewport>
-    <ScrollBar />
-    <ScrollAreaPrimitive.Corner />
-  </ScrollAreaPrimitive.Root>
-))
-ScrollArea.displayName = ScrollAreaPrimitive.Root.displayName
+export interface CntScrollAreaProps
+    extends React.HTMLAttributes<HTMLDivElement>,
+        VariantProps<typeof cntScrollAreaVariants> {}
 
-const ScrollBar = React.forwardRef<
-  React.ElementRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>,
-  React.ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>
->(({ className, orientation = "vertical", ...props }, ref) => (
-  <ScrollAreaPrimitive.ScrollAreaScrollbar
-    ref={ref}
-    orientation={orientation}
-    className={cn(
-      "flex touch-none select-none transition-colors",
-      orientation === "vertical" &&
-        "h-full w-2.5 border-l border-l-transparent p-[1px]",
-      orientation === "horizontal" &&
-        "h-2.5 flex-col border-t border-t-transparent p-[1px]",
-      className
-    )}
-    {...props}
-  >
-    <ScrollAreaPrimitive.ScrollAreaThumb className="relative flex-1 rounded-full bg-border" />
-  </ScrollAreaPrimitive.ScrollAreaScrollbar>
-))
-ScrollBar.displayName = ScrollAreaPrimitive.ScrollAreaScrollbar.displayName
+const CntScrollArea = React.forwardRef<HTMLDivElement, CntScrollAreaProps>(
+    ({ className, variant, size, ...props }, ref) => {
+        return (
+            <div
+                className={cn(cntScrollAreaVariants({ variant, size }), className)}
+                ref={ref}
+                {...props}
+            />
+        );
+    }
+);
+CntScrollArea.displayName = "CntScrollArea";
 
-export { ScrollArea, ScrollBar }
+export { CntScrollArea, cntScrollAreaVariants };

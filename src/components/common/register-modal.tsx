@@ -1,12 +1,11 @@
 "use client"
 
-import type React from "react"
 import { useState } from "react"
 import { Eye, EyeOff, X, Gamepad2, Users, Shield } from "lucide-react"
-import { CntButton } from "@/components/ui/button"
+import { CntLabel } from "@/components/ui/label"
 import { CntInput } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { CntCheckbox } from "@/components/ui/checkbox"
+import { CntButton } from "@/components/ui/button"
 
 interface RegisterModalProps {
     isOpen: boolean
@@ -67,17 +66,17 @@ export function RegisterModal({ isOpen, onClose, onSwitchToLogin }: RegisterModa
 
                             <form onSubmit={handleSubmit} className="space-y-4">
                                 <div className="space-y-1">
-                                    <Label htmlFor="username" className="text-xs">Nome de usuário</Label>
+                                    <CntLabel htmlFor="username" className="text-xs">Nome de usuário</CntLabel>
                                     <CntInput id="username" name="username" type="text" placeholder="Digite seu nome de usuário" value={formData.username} onChange={handleInputChange} required className="h-9" />
                                 </div>
 
                                 <div className="space-y-1">
-                                    <Label htmlFor="email" className="text-xs">Email</Label>
+                                    <CntLabel htmlFor="email" className="text-xs">Email</CntLabel>
                                     <CntInput id="email" name="email" type="email" placeholder="seu@email.com" value={formData.email} onChange={handleInputChange} required className="h-9" />
                                 </div>
 
                                 <div className="space-y-1">
-                                    <Label htmlFor="password" className="text-xs">Senha</Label>
+                                    <CntLabel htmlFor="password" className="text-xs">Senha</CntLabel>
                                     <div className="relative">
                                         <CntInput id="password" name="password" type={showPassword ? "text" : "password"} placeholder="Digite sua senha" value={formData.password} onChange={handleInputChange} required className="h-9 pr-10" />
                                         <button type="button" className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors" onClick={() => setShowPassword(!showPassword)}>
@@ -87,7 +86,7 @@ export function RegisterModal({ isOpen, onClose, onSwitchToLogin }: RegisterModa
                                 </div>
 
                                 <div className="space-y-1">
-                                    <Label htmlFor="confirmPassword" className="text-xs">Confirmar senha</Label>
+                                    <CntLabel htmlFor="confirmPassword" className="text-xs">Confirmar senha</CntLabel>
                                     <div className="relative">
                                         <CntInput id="confirmPassword" name="confirmPassword" type={showConfirmPassword ? "text" : "password"} placeholder="Confirme sua senha" value={formData.confirmPassword} onChange={handleInputChange} required className="h-9 pr-10" />
                                         <button type="button" className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
@@ -99,14 +98,14 @@ export function RegisterModal({ isOpen, onClose, onSwitchToLogin }: RegisterModa
                                 <div className="space-y-3 pt-2">
                                     <div className="flex items-start space-x-3">
                                         <CntCheckbox id="acceptTerms" name="acceptTerms" checked={formData.acceptTerms} onChange={handleInputChange} required />
-                                        <Label htmlFor="acceptTerms" className="text-xs leading-4">
+                                        <CntLabel htmlFor="acceptTerms" className="text-xs leading-4">
                                             Eu aceito os <button type="button" className="text-primary hover:text-primary-light underline">Termos de Uso</button> e a <button type="button" className="text-primary hover:text-primary-light underline">Política de Privacidade</button>
-                                        </Label>
+                                        </CntLabel>
                                     </div>
 
                                     <div className="flex items-start space-x-3">
                                         <CntCheckbox id="acceptNewsletter" name="acceptNewsletter" checked={formData.acceptNewsletter} onChange={handleInputChange} />
-                                        <Label htmlFor="acceptNewsletter" className="text-xs leading-4">Quero receber novidades e ofertas especiais</Label>
+                                        <CntLabel htmlFor="acceptNewsletter" className="text-xs leading-4">Quero receber novidades e ofertas especiais</CntLabel>
                                     </div>
                                 </div>
 
@@ -145,7 +144,7 @@ export function RegisterModal({ isOpen, onClose, onSwitchToLogin }: RegisterModa
                         <div className="text-center space-y-6 max-w-sm relative z-10">
                             <div className="flex justify-center mb-6">
                                 <div className="relative">
-sec                                    <img src="/ConnectPlay.png" alt="ConnectPlay Logo" width={160} height={160} className="rounded-2xl shadow-xl" />
+                                    <img src="/ConnectPlay.png" alt="ConnectPlay Logo" width={160} height={160} className="rounded-2xl shadow-xl" />
                                 </div>
                             </div>
 
