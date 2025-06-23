@@ -1,43 +1,44 @@
-import * as React from "react"
-import * as TogglePrimitive from "@radix-ui/react-toggle"
-import { cva, type VariantProps } from "class-variance-authority"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
-import { cn } from "@/lib/utils"
-
-const toggleVariants = cva(
-  "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground",
+const cnttoggleVariants = cva(
+  "flex w-full rounded-md border px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed",
   {
     variants: {
       variant: {
-        default: "bg-transparent",
-        outline:
-          "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground",
+        default: "bg-background border-border text-white",
+        ghost: "bg-transparent border-transparent hover:bg-muted",
+        filled: "bg-muted border-muted text-foreground",
       },
       size: {
-        default: "h-10 px-3",
-        sm: "h-9 px-2.5",
-        lg: "h-11 px-5",
+        sm: "h-8 px-2 text-sm",
+        md: "h-10 px-4 text-base",
+        lg: "h-12 px-6 text-lg",
       },
     },
     defaultVariants: {
       variant: "default",
-      size: "default",
+      size: "md",
     },
   }
-)
+);
 
-const Toggle = React.forwardRef<
-  React.ElementRef<typeof TogglePrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof TogglePrimitive.Root> &
-    VariantProps<typeof toggleVariants>
->(({ className, variant, size, ...props }, ref) => (
-  <TogglePrimitive.Root
-    ref={ref}
-    className={cn(toggleVariants({ variant, size, className }))}
-    {...props}
-  />
-))
+export interface CntToggleProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof cnttoggleVariants> {}
 
-Toggle.displayName = TogglePrimitive.Root.displayName
+const CntToggle = React.forwardRef<HTMLDivElement, CntToggleProps>(
+  ({ className, variant, size, ...props }, ref) => {
+    return (
+      <div
+        className={cn(cnttoggleVariants({ variant, size }), className)}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+CntToggle.displayName = "CntToggle";
 
-export { Toggle, toggleVariants }
+export { CntToggle, cnttoggleVariants };

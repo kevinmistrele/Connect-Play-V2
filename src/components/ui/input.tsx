@@ -1,28 +1,43 @@
-import * as React from "react";
-import { cn } from "@/lib/utils";
+import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "@/lib/utils"
 
-const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
-    ({ className, type = "text", ...props }, ref) => {
+const inputVariants = cva(
+    "flex w-full rounded-md border px-4 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed",
+    {
+        variants: {
+            variant: {
+                default: "bg-background border-border text-white",
+                ghost: "bg-transparent border-transparent hover:bg-muted",
+                filled: "bg-muted border-muted text-foreground",
+            },
+            size: {
+                sm: "h-8 px-2 text-sm",
+                md: "h-10 px-4 text-base",
+                lg: "h-12 px-6 text-lg",
+            },
+        },
+        defaultVariants: {
+            variant: "default",
+            size: "md",
+        },
+    }
+)
+
+export interface CntInputProps
+    extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">, // <-- REMOVE o size nativo do HTML
+        VariantProps<typeof inputVariants> {}
+
+export const CntInput = React.forwardRef<HTMLInputElement, CntInputProps>(
+    ({ className, type = "text", variant, size, ...props }, ref) => {
         return (
             <input
                 type={type}
-                className={cn(
-                    // base
-                    "w-full rounded-md border bg-background px-4 py-2 text-white placeholder-gray-500",
-                    // estado padrão
-                    "border-gray-700",
-                    // focus state
-                    "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-                    // disabled
-                    "disabled:opacity-50 disabled:cursor-not-allowed",
-                    className
-                )}
+                className={cn(inputVariants({ variant, size }), className)}
                 ref={ref}
                 {...props}
             />
-        );
+        )
     }
-);
-Input.displayName = "CntInput";
-
-export { Input as CntInput };
+)
+CntInput.displayName = "CntInput"

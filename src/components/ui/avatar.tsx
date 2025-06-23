@@ -1,48 +1,44 @@
-import * as React from "react"
-import * as AvatarPrimitive from "@radix-ui/react-avatar"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
-import { cn } from "@/lib/utils"
+const cntavatarVariants = cva(
+  "flex w-full rounded-md border px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed",
+  {
+    variants: {
+      variant: {
+        default: "bg-background border-border text-white",
+        ghost: "bg-transparent border-transparent hover:bg-muted",
+        filled: "bg-muted border-muted text-foreground",
+      },
+      size: {
+        sm: "h-8 px-2 text-sm",
+        md: "h-10 px-4 text-base",
+        lg: "h-12 px-6 text-lg",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "md",
+    },
+  }
+);
 
-const Avatar = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
->(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Root
-    ref={ref}
-    className={cn(
-      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
-      className
-    )}
-    {...props}
-  />
-))
-Avatar.displayName = AvatarPrimitive.Root.displayName
+export interface CntAvatarProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof cntavatarVariants> {}
 
-const AvatarImage = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Image>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
->(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Image
-    ref={ref}
-    className={cn("aspect-square h-full w-full", className)}
-    {...props}
-  />
-))
-AvatarImage.displayName = AvatarPrimitive.Image.displayName
+const CntAvatar = React.forwardRef<HTMLDivElement, CntAvatarProps>(
+  ({ className, variant, size, ...props }, ref) => {
+    return (
+      <div
+        className={cn(cntavatarVariants({ variant, size }), className)}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+CntAvatar.displayName = "CntAvatar";
 
-const AvatarFallback = React.forwardRef<
-  React.ElementRef<typeof AvatarPrimitive.Fallback>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
->(({ className, ...props }, ref) => (
-  <AvatarPrimitive.Fallback
-    ref={ref}
-    className={cn(
-      "flex h-full w-full items-center justify-center rounded-full bg-muted",
-      className
-    )}
-    {...props}
-  />
-))
-AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName
-
-export { Avatar, AvatarImage, AvatarFallback }
+export { CntAvatar, cntavatarVariants };

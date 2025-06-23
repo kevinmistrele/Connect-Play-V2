@@ -1,69 +1,44 @@
-import * as React from "react"
-import { OTPInput, OTPInputContext } from "input-otp"
-import { Dot } from "lucide-react"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
-import { cn } from "@/lib/utils"
+const cntInputOtpVariants = cva(
+    "flex w-full rounded-md border px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed",
+    {
+        variants: {
+            variant: {
+                default: "bg-background border-border text-white",
+                ghost: "bg-transparent border-transparent hover:bg-muted",
+                filled: "bg-muted border-muted text-foreground",
+            },
+            size: {
+                sm: "h-8 px-2 text-sm",
+                md: "h-10 px-4 text-base",
+                lg: "h-12 px-6 text-lg",
+            },
+        },
+        defaultVariants: {
+            variant: "default",
+            size: "md",
+        },
+    }
+);
 
-const InputOTP = React.forwardRef<
-  React.ElementRef<typeof OTPInput>,
-  React.ComponentPropsWithoutRef<typeof OTPInput>
->(({ className, containerClassName, ...props }, ref) => (
-  <OTPInput
-    ref={ref}
-    containerClassName={cn(
-      "flex items-center gap-2 has-[:disabled]:opacity-50",
-      containerClassName
-    )}
-    className={cn("disabled:cursor-not-allowed", className)}
-    {...props}
-  />
-))
-InputOTP.displayName = "InputOTP"
+export interface CntInputOtpProps
+    extends React.HTMLAttributes<HTMLDivElement>,
+        VariantProps<typeof cntInputOtpVariants> {}
 
-const InputOTPGroup = React.forwardRef<
-  React.ElementRef<"div">,
-  React.ComponentPropsWithoutRef<"div">
->(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("flex items-center", className)} {...props} />
-))
-InputOTPGroup.displayName = "InputOTPGroup"
+const CntInputOtp = React.forwardRef<HTMLDivElement, CntInputOtpProps>(
+    ({ className, variant, size, ...props }, ref) => {
+        return (
+            <div
+                className={cn(cntInputOtpVariants({ variant, size }), className)}
+                ref={ref}
+                {...props}
+            />
+        );
+    }
+);
+CntInputOtp.displayName = "CntInputOtp";
 
-const InputOTPSlot = React.forwardRef<
-  React.ElementRef<"div">,
-  React.ComponentPropsWithoutRef<"div"> & { index: number }
->(({ index, className, ...props }, ref) => {
-  const inputOTPContext = React.useContext(OTPInputContext)
-  const { char, hasFakeCaret, isActive } = inputOTPContext.slots[index]
-
-  return (
-    <div
-      ref={ref}
-      className={cn(
-        "relative flex h-10 w-10 items-center justify-center border-y border-r border-input text-sm transition-all first:rounded-l-md first:border-l last:rounded-r-md",
-        isActive && "z-10 ring-2 ring-ring ring-offset-background",
-        className
-      )}
-      {...props}
-    >
-      {char}
-      {hasFakeCaret && (
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <div className="h-4 w-px animate-caret-blink bg-foreground duration-1000" />
-        </div>
-      )}
-    </div>
-  )
-})
-InputOTPSlot.displayName = "InputOTPSlot"
-
-const InputOTPSeparator = React.forwardRef<
-  React.ElementRef<"div">,
-  React.ComponentPropsWithoutRef<"div">
->(({ ...props }, ref) => (
-  <div ref={ref} role="separator" {...props}>
-    <Dot />
-  </div>
-))
-InputOTPSeparator.displayName = "InputOTPSeparator"
-
-export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator }
+export { CntInputOtp, cntInputOtpVariants };

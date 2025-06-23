@@ -1,75 +1,44 @@
 import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-const Card = React.forwardRef<
-    HTMLDivElement,
-    React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-    <div
+const cntcardVariants = cva(
+  "flex w-full rounded-md border px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed",
+  {
+    variants: {
+      variant: {
+        default: "bg-background border-border text-white",
+        ghost: "bg-transparent border-transparent hover:bg-muted",
+        filled: "bg-muted border-muted text-foreground",
+      },
+      size: {
+        sm: "h-8 px-2 text-sm",
+        md: "h-10 px-4 text-base",
+        lg: "h-12 px-6 text-lg",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "md",
+    },
+  }
+);
+
+export interface CntCardProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof cntcardVariants> {}
+
+const CntCard = React.forwardRef<HTMLDivElement, CntCardProps>(
+  ({ className, variant, size, ...props }, ref) => {
+    return (
+      <div
+        className={cn(cntcardVariants({ variant, size }), className)}
         ref={ref}
-        className={cn(
-            "bg-card-bg rounded-lg border border-primary/30 hover:border-primary/60 transition-all duration-300",
-            className
-        )}
         {...props}
-    />
-));
-Card.displayName = "CntCard";
+      />
+    );
+  }
+);
+CntCard.displayName = "CntCard";
 
-const CardHeader = React.forwardRef<
-    HTMLDivElement,
-    React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-    <div ref={ref} className={cn("p-5", className)} {...props} />
-));
-CardHeader.displayName = "CntCardHeader";
-
-const CardTitle = React.forwardRef<
-    HTMLParagraphElement,
-    React.HTMLAttributes<HTMLHeadingElement>
->(({ className, ...props }, ref) => (
-    <h4
-        ref={ref}
-        className={cn("font-poppins text-lg font-semibold mb-3", className)}
-        {...props}
-    />
-));
-CardTitle.displayName = "CntCardTitle";
-
-const CardDescription = React.forwardRef<
-    HTMLParagraphElement,
-    React.HTMLAttributes<HTMLParagraphElement>
->(({ className, ...props }, ref) => (
-    <p
-        ref={ref}
-        className={cn("font-inter text-sm text-gray-300 mb-4", className)}
-        {...props}
-    />
-));
-CardDescription.displayName = "CntCardDescription";
-
-const CardContent = React.forwardRef<
-    HTMLDivElement,
-    React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-    <div ref={ref} className={cn("p-5 pt-0", className)} {...props} />
-));
-CardContent.displayName = "CntCardContent";
-
-const CardFooter = React.forwardRef<
-    HTMLDivElement,
-    React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-    <div ref={ref} className={cn("p-5 pt-0", className)} {...props} />
-));
-CardFooter.displayName = "CntCardFooter";
-
-// Aqui exportamos com nomes prefixed:
-export {
-    Card as CntCard,
-    CardHeader as CntCardHeader,
-    CardFooter as CntCardFooter,
-    CardTitle as CntCardTitle,
-    CardDescription as CntCardDescription,
-    CardContent as CntCardContent,
-};
+export { CntCard, cntcardVariants };

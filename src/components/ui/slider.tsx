@@ -1,26 +1,44 @@
-import * as React from "react"
-import * as SliderPrimitive from "@radix-ui/react-slider"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
-import { cn } from "@/lib/utils"
+const cntsliderVariants = cva(
+  "flex w-full rounded-md border px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed",
+  {
+    variants: {
+      variant: {
+        default: "bg-background border-border text-white",
+        ghost: "bg-transparent border-transparent hover:bg-muted",
+        filled: "bg-muted border-muted text-foreground",
+      },
+      size: {
+        sm: "h-8 px-2 text-sm",
+        md: "h-10 px-4 text-base",
+        lg: "h-12 px-6 text-lg",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "md",
+    },
+  }
+);
 
-const Slider = React.forwardRef<
-  React.ElementRef<typeof SliderPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
->(({ className, ...props }, ref) => (
-  <SliderPrimitive.Root
-    ref={ref}
-    className={cn(
-      "relative flex w-full touch-none select-none items-center",
-      className
-    )}
-    {...props}
-  >
-    <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-full bg-secondary">
-      <SliderPrimitive.Range className="absolute h-full bg-primary" />
-    </SliderPrimitive.Track>
-    <SliderPrimitive.Thumb className="block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50" />
-  </SliderPrimitive.Root>
-))
-Slider.displayName = SliderPrimitive.Root.displayName
+export interface CntSliderProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof cntsliderVariants> {}
 
-export { Slider }
+const CntSlider = React.forwardRef<HTMLDivElement, CntSliderProps>(
+  ({ className, variant, size, ...props }, ref) => {
+    return (
+      <div
+        className={cn(cntsliderVariants({ variant, size }), className)}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+CntSlider.displayName = "CntSlider";
+
+export { CntSlider, cntsliderVariants };

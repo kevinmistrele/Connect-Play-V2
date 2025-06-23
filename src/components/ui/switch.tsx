@@ -1,27 +1,44 @@
-import * as React from "react"
-import * as SwitchPrimitives from "@radix-ui/react-switch"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
-import { cn } from "@/lib/utils"
+const cntswitchVariants = cva(
+  "flex w-full rounded-md border px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed",
+  {
+    variants: {
+      variant: {
+        default: "bg-background border-border text-white",
+        ghost: "bg-transparent border-transparent hover:bg-muted",
+        filled: "bg-muted border-muted text-foreground",
+      },
+      size: {
+        sm: "h-8 px-2 text-sm",
+        md: "h-10 px-4 text-base",
+        lg: "h-12 px-6 text-lg",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "md",
+    },
+  }
+);
 
-const Switch = React.forwardRef<
-  React.ElementRef<typeof SwitchPrimitives.Root>,
-  React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>
->(({ className, ...props }, ref) => (
-  <SwitchPrimitives.Root
-    className={cn(
-      "peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input",
-      className
-    )}
-    {...props}
-    ref={ref}
-  >
-    <SwitchPrimitives.Thumb
-      className={cn(
-        "pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0"
-      )}
-    />
-  </SwitchPrimitives.Root>
-))
-Switch.displayName = SwitchPrimitives.Root.displayName
+export interface CntSwitchProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof cntswitchVariants> {}
 
-export { Switch }
+const CntSwitch = React.forwardRef<HTMLDivElement, CntSwitchProps>(
+  ({ className, variant, size, ...props }, ref) => {
+    return (
+      <div
+        className={cn(cntswitchVariants({ variant, size }), className)}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+CntSwitch.displayName = "CntSwitch";
+
+export { CntSwitch, cntswitchVariants };
