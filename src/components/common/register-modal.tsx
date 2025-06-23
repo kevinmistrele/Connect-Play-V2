@@ -43,11 +43,11 @@ export function RegisterModal({ isOpen, onClose, onSwitchToLogin }: RegisterModa
     if (!isOpen) return null
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" onClick={onClose} />
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-background/80 backdrop-blur-sm z-[9998]" onClick={onClose} />
 
-            <div className="relative w-full max-w-5xl bg-card/95 backdrop-blur-md rounded-2xl shadow-2xl border border-primary/20 overflow-hidden">
-                <button onClick={onClose} className="absolute top-4 right-4 z-20 text-muted-foreground hover:text-primary transition-colors">
+            <div className="relative w-full max-w-5xl bg-card/95 backdrop-blur-md rounded-2xl shadow-2xl border border-primary/20 overflow-hidden z-[9999]">
+                <button onClick={onClose} className="absolute top-4 right-4 z-[10000] text-muted-foreground hover:text-primary transition-colors">
                     <X className="h-5 w-5" />
                 </button>
 
